@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "876775281331",
+    "project_id": "easymelanoscan",
+    "storage_bucket": "easymelanoscan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876775281331:android:0a5b92aede0686306716c6",
+        "android_client_info": {
+          "package_name": "com.example.melanoma_detection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876775281331-nsaq0m468suvb50o75jeogb7rd0kkfck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxn9eINfkDoPg6xLmvu_OFHDNF_Ff_Ea8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876775281331-nsaq0m468suvb50o75jeogb7rd0kkfck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
