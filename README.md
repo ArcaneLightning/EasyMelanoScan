@@ -7,4 +7,4 @@ The final goal for the app was to detect whether a mole was benign or malignant.
 ### Notes
 All the app code is in the `lib` folder. All the machine learning code is in the `ml` folder.
 When cloning the repository, make sure to add a `tflite` file to the assets folder. If the name is not `vgg16.tflite`, make sure to change this in the code as well.
-Make sure to run the install.bat file as well.
+Make sure to run the `install.bat` file as well.
