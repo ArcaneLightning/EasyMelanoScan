@@ -10,4 +10,4 @@ When cloning the repository, make sure to add a `tflite` model to the assets fol
 Make sure to run the `install.bat` file as well.
 The machine learning code will not work if copy pasted. This is because some cells are before others but run after them. The code is just there as proof.
 
-[https://youtu.be/kn0_8JK6CqU](https://youtu.be/kn0_8JK6CqU) - demo
+[https://youtu.be/sM2gZZ3f2HM](https://youtu.be/sM2gZZ3f2HM) - demo
