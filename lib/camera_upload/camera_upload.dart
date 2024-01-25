@@ -107,10 +107,10 @@ class _UploadScreenState extends State<UploadScreen> {
     final accuracy = resultCategory[0].score;
 
     final softmax = _classifier!.Softmax([resultCategory[0].score.abs(), resultCategory[1].score.abs()]);
-    final f_acc = double.parse(softmax[0].toStringAsFixed(1)) * 100;
+    final f_acc = double.parse(softmax[0].toStringAsFixed(4)) * 100;
 
     final maxAcc = _classifier!.getAcc([resultCategory[0].score.abs(), resultCategory[1].score.abs()]);
-    final acc = double.parse(maxAcc[0].toStringAsFixed(1)) * 100;
+    final acc = double.parse(maxAcc[0].toStringAsFixed(4)) * 100;
 
     _setAnalyzing(false);
 
