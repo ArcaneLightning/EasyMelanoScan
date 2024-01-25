@@ -107,14 +107,17 @@ class _UploadScreenState extends State<UploadScreen> {
     final accuracy = resultCategory[0].score;
 
     final softmax = _classifier!.Softmax([resultCategory[0].score.abs(), resultCategory[1].score.abs()]);
-    final f_acc = double.parse(softmax[0].toStringAsFixed(2)) * 100;
+    final f_acc = double.parse(softmax[0].toStringAsFixed(1)) * 100;
+
+    final maxAcc = _classifier!.getAcc([resultCategory[0].score.abs(), resultCategory[1].score.abs()]);
+    final acc = double.parse(maxAcc[0].toStringAsFixed(1)) * 100;
 
     _setAnalyzing(false);
 
     setState(() {
       _resultStatus = result;
       _label = Label;
-      _accuracy = f_acc;
+      _accuracy = acc;
     });
 
     addData(
@@ -140,7 +143,7 @@ class _UploadScreenState extends State<UploadScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _label != "" ? Text(_label.toUpperCase(), style: TextStyle(fontSize: 50, color: _label == "malignant" ? Colors.red : Colors.green)) : const Text("No Prediction Yet"),
-            _accuracy != 0.0 ? Text("Confidence: ${_accuracy}%") : const Text("No classification run yet!"),
+            _accuracy != 0.0 ? Text("Confidence: ${_accuracy}%") : const Text("No confidence yet!"),
             _selectedImage != null ? Image.file(_selectedImage!) : const Text("Please Select an Image!"),
             const SizedBox(height: 25),
             Row(
@@ -176,6 +179,7 @@ class _UploadScreenState extends State<UploadScreen> {
   Future _pickImage(ImageSource source) async {
     setState(() {
       _label = "";
+      _accuracy = 0.0;
     });
     final returnedImage = await ImagePicker().pickImage(source: source);
     if (returnedImage == null) {return;}

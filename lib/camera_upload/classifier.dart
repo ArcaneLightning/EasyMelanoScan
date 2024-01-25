@@ -153,18 +153,31 @@ class Classifier {
     return categoryList;
  }
 
- List<double> Softmax(List<double> list) {
-    List<double> new_l = [];
-    double sum = 0;
-    for (double num in list) {
-      sum += exp(num);
-    }
-    for (double num in list) {
-      double s = exp(num) / sum;
-      new_l.add(s);
-    }
-    return new_l;
+List<double> Softmax(List<double> list) {
+  List<double> new_l = [];
+  double sum = 0;
+  for (double num in list) {
+    sum += exp(num);
+  }
+  for (double num in list) {
+    double s = exp(num) / sum;
+    new_l.add(s);
+  }
+  return new_l;
  }
+
+List<double> getAcc(List<double> list) {
+List<double> new_l = [];
+double sum = 0;
+for (double num in list) {
+  sum += (num);
+}
+for (double num in list) {
+  double s = num / sum;
+  new_l.add(s);
+}
+return new_l;
+}
 }
 // class Classifier {
 //   static Future loadModel(String modelFileName, String labelsFileName) async {
