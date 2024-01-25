@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:melanoma_detection/camera_upload/classifier.dart';
 import 'package:melanoma_detection/center/center.dart';
+import 'package:melanoma_detection/camera_upload/classifier.dart';
 // import 'package:pytorch_lite/pytorch_lite.dart';
 
 
@@ -99,18 +100,21 @@ class _UploadScreenState extends State<UploadScreen> {
 
     final resultCategory = _classifier!.predict(imageInput);
 
-    final result = resultCategory.score >= 0.8
+    final result = resultCategory[0].score >= 0.8
         ? _ResultStatus.found
         : _ResultStatus.notFound;
-    final Label = resultCategory.label;
-    final accuracy = resultCategory.score;
+    final Label = resultCategory[0].label;
+    final accuracy = resultCategory[0].score;
+
+    final softmax = _classifier!.Softmax([resultCategory[0].score.abs(), resultCategory[1].score.abs()]);
+    final f_acc = double.parse(softmax[0].toStringAsFixed(2)) * 100;
 
     _setAnalyzing(false);
 
     setState(() {
       _resultStatus = result;
       _label = Label;
-      _accuracy = accuracy;
+      _accuracy = f_acc;
     });
 
     addData(
@@ -136,6 +140,7 @@ class _UploadScreenState extends State<UploadScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _label != "" ? Text(_label.toUpperCase(), style: TextStyle(fontSize: 50, color: _label == "malignant" ? Colors.red : Colors.green)) : const Text("No Prediction Yet"),
+            _accuracy != 0.0 ? Text("Confidence: ${_accuracy}%") : const Text("No classification run yet!"),
             _selectedImage != null ? Image.file(_selectedImage!) : const Text("Please Select an Image!"),
             const SizedBox(height: 25),
             Row(

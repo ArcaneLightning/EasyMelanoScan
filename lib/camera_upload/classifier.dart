@@ -6,7 +6,7 @@ import 'classifier_category.dart';
 import 'classifier_model.dart';
 import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 import 'dart:math';
-import 'package:tflite_v2/tflite_v2.dart';
+// import 'package:tflite_v2/tflite_v2.dart';
 
 
 typedef ClassifierLabels = List<String>;
@@ -38,7 +38,7 @@ class Classifier {
     }
   }
 
-  ClassifierCategory predict(Image image) {
+  List<ClassifierCategory> predict(Image image) {
     // Load the image and convert it to TensorImage for TensorFlow Input
     final inputImage = _preProcessInput(image);
 
@@ -53,11 +53,12 @@ class Classifier {
 
     // Post Process the outputBuffer
     final resultCategories = _postProcessOutput(outputBuffer);
-    final topResult = resultCategories.first;
+    final topResult = resultCategories[0];
+    final bottomResult = resultCategories[1];
 
     debugPrint('Top category: $topResult');
 
-    return topResult;
+    return [topResult, bottomResult];
   }
 
   static Future<ClassifierLabels> _loadLabels(String labelsFileName) async {
@@ -150,6 +151,19 @@ class Classifier {
     categoryList.sort((a, b) => (b.score.abs() > a.score.abs() ? 1 : -1));
 
     return categoryList;
+ }
+
+ List<double> Softmax(List<double> list) {
+    List<double> new_l = [];
+    double sum = 0;
+    for (double num in list) {
+      sum += exp(num);
+    }
+    for (double num in list) {
+      double s = exp(num) / sum;
+      new_l.add(s);
+    }
+    return new_l;
  }
 }
 // class Classifier {
